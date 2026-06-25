@@ -1,7 +1,7 @@
-const canvas = document.getElementById("myCanvas");
+export const canvas = document.getElementById("myCanvas");
 export const ctx = canvas.getContext("2d");
 
-      const ROWS = 20;
+      export const ROWS = 20;
       const COLS = 10;
       export const BLOCK_SIZE = 30;
 
@@ -15,7 +15,7 @@ export const ctx = canvas.getContext("2d");
         }
       }
 
-      function drawBoard() {
+      export function drawBoard() {
         for (let row = 0; row < ROWS; row++) {
           for (let col = 0; col < COLS; col++) {
 

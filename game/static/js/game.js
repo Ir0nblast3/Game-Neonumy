@@ -1,13 +1,28 @@
-import { PIECES } from './pieces.js';
+import { ROWS } from "./board.js";
 
 
-export class AtualPiece {
+export function collision(piece) {
 
-    constructor(type) {
-        this.shape = PIECES[type];
+    for (let row = 0; row < piece.shape.length; row++) {
 
-        this.x = 3;
-        this.y = 0;
+        for (let col = 0; col < piece.shape[row].length; col++) {
+
+
+            if (piece.shape[row][col] === 0) {
+                continue;
+            }
+
+
+            const newY = piece.y + row;
+
+
+            if (newY >= ROWS) {
+                return true;
+            }
+
+        }
     }
 
+
+    return false;
 }
