@@ -1,5 +1,6 @@
-import { piece } from "./piece.js";
-import { draw } from "./main.js";
+import { piece, rotatePiece } from "./piece.js";
+import { draw, update } from "./main.js";
+import { collision } from "./game.js";
 
 
 document.addEventListener("keydown", (event) => {
@@ -7,20 +8,43 @@ document.addEventListener("keydown", (event) => {
 
     switch(event.key) {
 
+        case "ArrowDown":
+
+            update();
+            break;
+
+        case "ArrowUp":
+
+            rotatePiece(piece);
+
+            const overflow = piece.x + piece.shape[0].length - 10;
+
+            if (overflow > 0) {
+                piece.x -= overflow;
+            }
+ 
+            break;
 
         case "ArrowLeft":
 
-            if (piece.x > 0) {
-                piece.x--;
+            piece.x--;
+
+            if (collision(piece)) {
+
+                piece.x++;
+
             }
 
             break;
 
-
         case "ArrowRight":
 
-            if (piece.x + piece.shape[0].length < 10) {
-                piece.x++;
+            piece.x++;
+
+            if (collision(piece)) {
+
+                piece.x--;
+
             }
 
             break;

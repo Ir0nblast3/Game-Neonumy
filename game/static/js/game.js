@@ -1,4 +1,4 @@
-import { ROWS } from "./board.js";
+import { ROWS, board } from "./board.js";
 
 
 export function collision(piece) {
@@ -13,10 +13,21 @@ export function collision(piece) {
             }
 
 
+            const newX = piece.x + col;
             const newY = piece.y + row;
 
+            // colisão com paredes laterais
+            if (newX < 0 || newX >= 10) {
+                return true;
+            }
 
+            // colisão com o chão
             if (newY >= ROWS) {
+                return true;
+            }
+
+            // colisão com outras peças
+            if (board[newY][newX] === 1) {
                 return true;
             }
 

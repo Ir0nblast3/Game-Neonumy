@@ -1,34 +1,96 @@
 export const canvas = document.getElementById("myCanvas");
 export const ctx = canvas.getContext("2d");
 
-      export const ROWS = 20;
-      const COLS = 10;
-      export const BLOCK_SIZE = 30;
+export const ROWS = 20;
+export const COLS = 10;
+export const BLOCK_SIZE = 30;
 
-      let board = [];
+export let board = [];
 
-      for (let row = 0; row < ROWS; row++) {
-        board[row] = [];
+for (let row = 0; row < ROWS; row++) {
+  board[row] = [];
 
-        for (let col = 0; col < COLS; col++) {
-          board[row][col] = 0;
-        }
+  for (let col = 0; col < COLS; col++) {
+    board[row][col] = 0;
+  }
+}
+
+export function drawBoard() {
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
+
+      ctx.strokeStyle = "#555";
+
+      ctx.strokeRect(
+        col * BLOCK_SIZE,
+        row * BLOCK_SIZE,
+        BLOCK_SIZE,
+        BLOCK_SIZE
+      );
+
+      if (board[row][col] === 1) {
+
+        ctx.fillStyle = "purple";
+
+        ctx.fillRect(
+          col * BLOCK_SIZE,
+          row * BLOCK_SIZE,
+          BLOCK_SIZE,
+          BLOCK_SIZE
+        );
+
+      }
+    }
+  }
+}
+
+drawBoard();
+
+export function mergePiece(piece) {
+
+  for (let row = 0; row < piece.shape.length; row++) {
+
+    for (let col = 0; col < piece.shape[row].length; col++) {
+
+      if (piece.shape[row][col] === 1) {
+
+        board[piece.y + row][piece.x + col] = 1;
+
       }
 
-      export function drawBoard() {
-        for (let row = 0; row < ROWS; row++) {
-          for (let col = 0; col < COLS; col++) {
+    }
+  }
+}
 
-            ctx.strokeStyle = "#555";
+export function clearLines() {
 
-            ctx.strokeRect(
-              col * BLOCK_SIZE,
-              row * BLOCK_SIZE,
-              BLOCK_SIZE,
-              BLOCK_SIZE
-            );
-          }
-        }
+  for (let row = ROWS - 1; row >= 0; row--) {
+
+    let full = true;
+
+    for (let col = 0; col < COLS; col++) {
+
+      if (board[row][col] === 0) {
+
+        full = false;
+        break;
+
       }
 
-      drawBoard();
+    }
+
+    if (full) {
+
+      board.splice(row, 1);
+
+      board.unshift(
+        new Array(COLS).fill(0)
+      );
+
+      row++;
+
+    }
+
+  }
+
+}
