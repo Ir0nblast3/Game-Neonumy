@@ -1,23 +1,42 @@
-import { PIECES } from './pieces.js';
+import { PIECES, COLORS, drawNextPiece } from './pieces.js';
+
 
 export class AtualPiece {
-
+    
     constructor(type) {
+        
+        this.type = type;
+        this.color = COLORS[type];
         this.shape = PIECES[type];
-
+        
         this.x = 4;
-        this.y = 0;
+        this.y = -1;
     }
-
+    
 }
 
 const types = ["O", "T", "L", "J", "S", "Z", "I"];
 
-export let piece = new AtualPiece("T");
+export let piece = null;
+export let nextPiece = null;
+
+export function initPieces() {
+    nextPiece = createRandomPiece();
+    piece = createRandomPiece();
+
+    drawNextPiece(nextPiece);
+}
+
+export function createRandomPiece() {
+    const randomType = types[Math.floor(Math.random() * types.length)];
+    return new AtualPiece(randomType);
+}
 
 export function newPiece() {
-    const randomType = types[Math.floor(Math.random() * types.length)];
-    piece = new AtualPiece(randomType);
+    piece = nextPiece;
+    nextPiece = createRandomPiece();
+
+    drawNextPiece(nextPiece);
 }
 
 export function rotatePiece(piece) {

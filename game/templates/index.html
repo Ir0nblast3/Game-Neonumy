@@ -3,7 +3,7 @@
 <html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <title>Gamedev Canvas Workshop</title>
+    <title>SUS Tetris</title>
     <style>
       * {
         padding: 0;
@@ -12,13 +12,61 @@
       canvas {
         background: #eeeeee;
         display: block;
-        margin: 0 auto;
+        /* margin: 0 auto; */
+      }
+      #gameOverScreen{
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .hidden {
+          display: none !important;
+      }
+      .popup{
+        background: white;
+        color: black;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .popup button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
       }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
+    <div class="d-flex justify-content-center align-items-start">
+
     <canvas id="myCanvas" width="300" height="600"></canvas>
+
+    <div class="d-flex flex-column justify-content-center ms-5">
+
+      <div>
+        <h2>Score:</h2>
+        <p id="score">0</p>
+      </div>
+
+      <h3 class="mt-5">Next Piece:</h3>
+      <canvas id="pieceCanvas" width="120" height="120"></canvas>
+
+    </div>
+
+    <div id="gameOverScreen" class="hidden">
+      <div class="popup">
+        <h1>Game Over</h1>
+        <p>Score <span id="finalScore"></span></p>
+        <button id="restartBtn">Play Again</button>
+      </div>
+    </div>
+
+    </div>
 
     <script type="module" src="{% static 'js/main.js' %}"></script>
 

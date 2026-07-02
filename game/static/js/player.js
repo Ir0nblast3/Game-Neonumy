@@ -1,10 +1,11 @@
 import { piece, rotatePiece } from "./piece.js";
 import { draw, update } from "./main.js";
-import { collision } from "./game.js";
+import { collision, gameOver } from "./game.js";
 
 
 document.addEventListener("keydown", (event) => {
 
+    if (gameOver) return;
 
     switch(event.key) {
 

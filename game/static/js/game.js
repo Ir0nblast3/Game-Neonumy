@@ -1,5 +1,37 @@
 import { ROWS, board } from "./board.js";
+import { changeSpeed, speed } from "./main.js";
 
+export let gameOver = false;
+
+export let score = 0;
+
+const scoreElement = document.getElementById("score");
+
+export function addScore(points) {
+    score += points;
+    scoreElement.textContent = score;
+
+    if (score % 1000 === 0) {
+
+        const newSpeed = Math.max(150, speed - 50);
+
+        changeSpeed(newSpeed);
+
+    }
+}
+
+export function setGameOver(value) {
+    gameOver = value;
+}
+
+export function showGameOver(){
+    const screen = document.getElementById("gameOverScreen");
+    const finalScore = document.getElementById("finalScore");
+
+    finalScore.textContent = score;
+
+    screen.classList.remove("hidden");
+}
 
 export function collision(piece) {
 
@@ -27,7 +59,7 @@ export function collision(piece) {
             }
 
             // colisão com outras peças
-            if (board[newY][newX] === 1) {
+            if (newY >= 0 && board[newY][newX] !== 0) {
                 return true;
             }
 

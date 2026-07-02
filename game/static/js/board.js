@@ -1,3 +1,5 @@
+import { addScore } from "./game.js";
+
 export const canvas = document.getElementById("myCanvas");
 export const ctx = canvas.getContext("2d");
 
@@ -28,9 +30,9 @@ export function drawBoard() {
         BLOCK_SIZE
       );
 
-      if (board[row][col] === 1) {
+      if (board[row][col] !== 0) {
 
-        ctx.fillStyle = "purple";
+        ctx.fillStyle = board[row][col];
 
         ctx.fillRect(
           col * BLOCK_SIZE,
@@ -54,7 +56,12 @@ export function mergePiece(piece) {
 
       if (piece.shape[row][col] === 1) {
 
-        board[piece.y + row][piece.x + col] = 1;
+        const boardY = piece.y + row;
+        const boardX = piece.x + col;
+
+        if (boardY >= 0) {
+          board[boardY][boardX] = piece.color;
+        }
 
       }
 
@@ -86,6 +93,8 @@ export function clearLines() {
       board.unshift(
         new Array(COLS).fill(0)
       );
+      
+      addScore(100);
 
       row++;
 
