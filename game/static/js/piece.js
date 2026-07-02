@@ -10,17 +10,31 @@ export class AtualPiece {
         this.shape = PIECES[type];
         
         this.x = 4;
-        this.y = -1;
+        this.y = -2;
     }
     
 }
 
 const types = ["O", "T", "L", "J", "S", "Z", "I"];
+let bag = [];
 
 export let piece = null;
 export let nextPiece = null;
 
+function refillBag() {
+
+    bag = [...types];
+
+    for (let i = bag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+}
+
 export function initPieces() {
+    
+    refillBag();
+
     nextPiece = createRandomPiece();
     piece = createRandomPiece();
 
@@ -28,8 +42,13 @@ export function initPieces() {
 }
 
 export function createRandomPiece() {
-    const randomType = types[Math.floor(Math.random() * types.length)];
-    return new AtualPiece(randomType);
+    if (bag.length === 0) {
+        refillBag();
+    }
+
+    const type = bag.pop();
+
+    return new AtualPiece(type);
 }
 
 export function newPiece() {

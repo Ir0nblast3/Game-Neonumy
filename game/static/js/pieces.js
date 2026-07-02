@@ -11,8 +11,8 @@ export const PIECES = {
     ],
 
     T:[
-       [0,1,0],
-       [1,1,1]
+       [1,1,1],
+       [0,1,0]
     ],
 
     L:[
@@ -83,9 +83,8 @@ export function drawNextPiece(nextPiece) {
 
    const shape = nextPiece.shape;
 
-   // centrado (opcional mas recomendado)
    const offsetX = 2;
-   const offsetY = 1;
+   const offsetY = 2;
 
    for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {

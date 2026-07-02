@@ -69,3 +69,20 @@ export function collision(piece) {
 
     return false;
 }
+
+const highScoreElement = document.getElementById("highScore");
+
+export let highScore = Number(localStorage.getItem("highScore")) || 0;
+
+highScoreElement.textContent = highScore;
+
+export function saveHighScore() {
+
+    if (score > highScore){
+
+        highScore = score;
+
+        localStorage.setItem("highScore", highScore);
+        highScoreElement.textContent = highScore;
+    }
+}

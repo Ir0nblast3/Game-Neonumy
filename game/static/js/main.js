@@ -1,5 +1,5 @@
 import { ctx, canvas, drawBoard, mergePiece, clearLines } from './board.js';
-import { collision, gameOver, setGameOver, showGameOver } from "./game.js";
+import { collision, gameOver, setGameOver, showGameOver, saveHighScore } from "./game.js";
 import { drawPiece } from './pieces.js';
 import { piece, nextPiece, newPiece, initPieces } from "./piece.js";
 import './player.js';
@@ -37,6 +37,8 @@ export function update() {
                     piece.shape[row][col] === 1 &&
                     piece.y + row < 0
                 ) {
+                    saveHighScore();
+
                     setGameOver(true);
                     showGameOver();
                     return;
