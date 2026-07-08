@@ -1,5 +1,5 @@
 import { ctx, canvas, drawBoard, mergePiece, clearLines } from './board.js';
-import { collision, gameOver, setGameOver, showGameOver, saveHighScore } from "./game.js";
+import { collision, gameOver, setGameOver, showGameOver, saveHighScore, score } from "./game.js";
 import { drawPiece } from './pieces.js';
 import { piece, nextPiece, newPiece, initPieces } from "./piece.js";
 import './player.js';
@@ -8,12 +8,8 @@ export let speed = 500;
 
 export function draw() {
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = 0.1;
 
     drawBoard();
     drawPiece(piece);
@@ -37,8 +33,6 @@ export function update() {
                     piece.shape[row][col] === 1 &&
                     piece.y + row < 0
                 ) {
-                    saveHighScore();
-
                     setGameOver(true);
                     showGameOver();
                     return;
@@ -73,3 +67,9 @@ export function changeSpeed(newSpeed) {
 document.getElementById("restartBtn").addEventListener("click", () => {
     location.reload();
 });
+
+document.getElementById("submitBtn").addEventListener("click", () =>{
+    saveHighScore(score);
+    document.getElementById("submitBtn").classList.add("hidden");
+    document.getElementById("restartBtn").classList.remove("hidden");
+})

@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Score(models.Model):
+    player = models.CharField(max_length=15)
+    score = models.IntegerField()
+
+    class Meta:
+        ordering = ['-score']

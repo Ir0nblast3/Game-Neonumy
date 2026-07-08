@@ -21,7 +21,7 @@ export function drawBoard() {
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
 
-      ctx.strokeStyle = "#555";
+      ctx.strokeStyle = "#ffffff";
 
       ctx.strokeRect(
         col * BLOCK_SIZE,

@@ -70,19 +70,52 @@ export function collision(piece) {
     return false;
 }
 
-const highScoreElement = document.getElementById("highScore");
+const highScoreList = document.getElementById("highScoreList");
 
-export let highScore = Number(localStorage.getItem("highScore")) || 0;
+let highScores = [];
 
-highScoreElement.textContent = highScore;
+loadHighScores();
 
-export function saveHighScore() {
+export function saveHighScore(score) {
 
-    if (score > highScore){
+    fetch("http://127.0.0.1:8000/add-score/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            player: document.getElementById("playerName").value,
+            score: score
+        })
+    })
+    .then(res => res.json())
+    .then(() => {
+        loadHighScores();
+    });
+}
 
-        highScore = score;
+export function loadHighScores() {
 
-        localStorage.setItem("highScore", highScore);
-        highScoreElement.textContent = highScore;
-    }
+    fetch("http://127.0.0.1:8000/top10/")
+        .then(res => res.json())
+        .then(data => {
+
+            highScores = data;
+
+            displayHighScores();
+        });
+}
+
+export function displayHighScores() {
+
+    highScoreList.innerHTML = "";
+
+    highScores.forEach(item => {
+
+        const li = document.createElement("li");
+        li.textContent = `${item.player} - ${item.score}`;
+
+        highScoreList.appendChild(li);
+    });
+
 }
