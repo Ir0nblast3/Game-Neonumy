@@ -1,8 +1,10 @@
 import { ROWS, board } from "./board.js";
 import { changeSpeed, speed } from "./main.js";
 
-export let gameOver = false;
+const pauseMenu = document.getElementById("pauseMenu");
+export let pause = false
 
+export let gameOver = false;
 export let score = 0;
 
 const scoreElement = document.getElementById("score");
@@ -44,21 +46,17 @@ export function collision(piece) {
                 continue;
             }
 
-
             const newX = piece.x + col;
             const newY = piece.y + row;
 
-            // colisão com paredes laterais
             if (newX < 0 || newX >= 10) {
                 return true;
             }
 
-            // colisão com o chão
             if (newY >= ROWS) {
                 return true;
             }
 
-            // colisão com outras peças
             if (newY >= 0 && board[newY][newX] !== 0) {
                 return true;
             }
@@ -72,13 +70,11 @@ export function collision(piece) {
 
 const highScoreList = document.getElementById("highScoreList");
 
-let highScores = [];
-
 loadHighScores();
 
-export function saveHighScore(score) {
+export async function saveHighScore(score) {
 
-    fetch("http://127.0.0.1:8000/add-score/", {
+    await fetch("http://127.0.0.1:8000/add-score/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -88,34 +84,48 @@ export function saveHighScore(score) {
             score: score
         })
     })
-    .then(res => res.json())
-    .then(() => {
-        loadHighScores();
-    });
+  
+    await loadHighScores();
 }
 
-export function loadHighScores() {
+export async function loadHighScores() {
 
-    fetch("http://127.0.0.1:8000/top10/")
-        .then(res => res.json())
-        .then(data => {
+    const response = await fetch("http://127.0.0.1:8000/top10/");
+    const highScores = await response.json();
 
-            highScores = data;
-
-            displayHighScores();
-        });
+    displayHighScores(highScores);
 }
 
-export function displayHighScores() {
+export function displayHighScores(highScores) {
 
     highScoreList.innerHTML = "";
 
-    highScores.forEach(item => {
+    highScores.forEach((item, index) => {
 
         const li = document.createElement("li");
+
         li.textContent = `${item.player} - ${item.score}`;
+
+        if (index === 0) {
+            li.classList.add("first");
+        } 
+        else if (index === 1) {
+            li.classList.add("second");
+        } 
+        else if (index === 2) {
+            li.classList.add("third");
+        }
 
         highScoreList.appendChild(li);
     });
+}
 
+export function togglePause(){
+    pause = !pause;
+
+    if (pause){
+        pauseMenu.classList.remove("hidden");
+    } else{
+        pauseMenu.classList.add("hidden");
+    }
 }

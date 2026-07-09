@@ -83,8 +83,15 @@ export function drawNextPiece(nextPiece) {
 
    const shape = nextPiece.shape;
 
-   const offsetX = 2;
-   const offsetY = 2;
+   const blockSize = 20;
+
+   // tamanho da peça em pixels
+   const pieceWidth = shape[0].length * blockSize;
+   const pieceHeight = shape.length * blockSize;
+
+   // calcular posição para ficar centrada
+   const offsetX = (120 - pieceWidth) / 2;
+   const offsetY = (120 - pieceHeight) / 2;
 
    for (let row = 0; row < shape.length; row++) {
       for (let col = 0; col < shape[row].length; col++) {
@@ -94,10 +101,10 @@ export function drawNextPiece(nextPiece) {
             nextCtx.fillStyle = COLORS[nextPiece.type];
 
             nextCtx.fillRect(
-               (col + offsetX) * 20,
-               (row + offsetY) * 20,
-               20,
-               20
+               offsetX + col * blockSize,
+               offsetY + row * blockSize,
+               blockSize,
+               blockSize
             );
          }
       }

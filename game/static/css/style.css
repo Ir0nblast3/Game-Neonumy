@@ -19,19 +19,30 @@ canvas {
     z-index: 1000;
 }
 
+#pauseMenu{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
 .hidden{
     display: none !important;
 }
 
 .popup{
        
-    background: white;
+    background: black;
        
-    color: black;
+    color: white;
        
     padding: 30px;
         
     border-radius: 10px;
+    border: 2px solid white;
         
     text-align: center;
       
@@ -44,6 +55,11 @@ canvas {
     padding: 10px 20px;
         
     cursor: pointer;
+
+    border-radius: 5px;
+    background: black;
+    border: 1px solid white;
+    color: white;
      
 }
       
@@ -51,4 +67,40 @@ canvas {
        
     background-color: black;
       
+}
+
+.title {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 48px !important;
+}
+
+.text {
+    font-family: "VT323", monospace;
+    font-size: 24px !important;
+}
+
+#pieceCanvas {
+    width: 120px;
+    height: 120px;
+}
+
+.button {
+    font-family: "VT323", monospace;
+}
+
+.first {
+    color: gold;
+}
+
+.second {
+    color: silver;
+}
+
+.third {
+    color: #cd7f32;
+}
+
+#score {
+    font-family: "VT323", monospace;
+    font-size: 80px;
 }

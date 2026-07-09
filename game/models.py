@@ -5,4 +5,7 @@ class Score(models.Model):
     score = models.IntegerField()
 
     class Meta:
-        ordering = ['-score']
+        ordering = ["-score"]
+
+    def __str__(self):
+        return f"{self.player} - {self.score}"

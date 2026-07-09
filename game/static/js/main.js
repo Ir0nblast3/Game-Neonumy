@@ -1,10 +1,12 @@
 import { ctx, canvas, drawBoard, mergePiece, clearLines } from './board.js';
-import { collision, gameOver, setGameOver, showGameOver, saveHighScore, score } from "./game.js";
+import { collision, gameOver, setGameOver, showGameOver, saveHighScore, score, togglePause, pause  } from "./game.js";
 import { drawPiece } from './pieces.js';
 import { piece, nextPiece, newPiece, initPieces } from "./piece.js";
 import './player.js';
 
 export let speed = 500;
+
+const resumeBtn = document.getElementById("resumeBtn");
 
 export function draw() {
 
@@ -17,7 +19,7 @@ export function draw() {
 
 export function update() {
 
-    if (gameOver) return;
+    if (gameOver || pause) return;
 
     piece.y++;
 
@@ -69,7 +71,20 @@ document.getElementById("restartBtn").addEventListener("click", () => {
 });
 
 document.getElementById("submitBtn").addEventListener("click", () =>{
+    
+    const playerName = document.getElementById("playerName").value.trim();
+
+    if (playerName === "") {
+        alert("Please enter your name!");
+        return;
+    }
+    
     saveHighScore(score);
     document.getElementById("submitBtn").classList.add("hidden");
     document.getElementById("restartBtn").classList.remove("hidden");
+    document.getElementById("playerName").classList.add("hidden");
+})
+
+document.getElementById("resumeBtn").addEventListener("click", () =>{
+    togglePause();
 })

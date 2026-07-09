@@ -1,11 +1,11 @@
 import { piece, rotatePiece } from "./piece.js";
 import { draw, update } from "./main.js";
-import { collision, gameOver } from "./game.js";
+import { collision, gameOver, togglePause, pause } from "./game.js";
 
 
 document.addEventListener("keydown", (event) => {
 
-    if (gameOver) return;
+    if (gameOver || pause) return;
 
     switch(event.key) {
 
@@ -49,6 +49,11 @@ document.addEventListener("keydown", (event) => {
             }
 
             break;
+        case "p":
+
+            togglePause();
+
+            break
 
     }
 

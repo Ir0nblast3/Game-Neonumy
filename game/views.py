@@ -12,48 +12,27 @@ def add_score(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
-        player = data.get("player")
-        score = int(data.get("score", 0))
+        Score.objects.create(
+            player=data["player"],
+            score=data["score"]
+        )
 
-        if Score.objects.filter(player=player, score=score).exists():
-            return JsonResponse({
-                "success": True,
-                "saved": False,
-                "duplicate": True
-            })
+        return JsonResponse({
+            "success": True
+        })
 
-        # menos de 10 scores → guarda direto
-        if Score.objects.count() < 10:
-            Score.objects.create(player=player, score=score)
-            return JsonResponse({"success": True, "saved": True})
-
-        # pior score do top 10
-        lowest_top = Score.objects.order_by("-score")[9].score
-
-        # só entra se for melhor
-        if score > lowest_top:
-            # remove o pior
-            Score.objects.order_by("-score")[9].delete()
-
-            # adiciona novo
-            Score.objects.create(player=player, score=score)
-
-            return JsonResponse({"success": True, "saved": True})
-
-        return JsonResponse({"success": True, "saved": False})
-
-    return JsonResponse({"success": False}, status=405)
+    return JsonResponse({
+        "success": False
+    })
 
 
 def top10(request):
-    scores = Score.objects.order_by("-score")[:10]
+    scores = Score.objects.all()[:10]
 
-    data = [
+    return JsonResponse([
         {
             "player": s.player,
             "score": s.score
         }
         for s in scores
-    ]
-
-    return JsonResponse(data, safe=False)
+    ], safe=False)
