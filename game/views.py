@@ -14,14 +14,6 @@ def add_score(request):
             score=request.POST["score"]
         )
 
-        return JsonResponse({
-            "success": True
-        })
-
-    return JsonResponse({
-        "success": False
-    })
-
 
 def top10(request):
     scores = Score.objects.all()[:10]
