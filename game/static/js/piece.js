@@ -2,7 +2,7 @@ import { PIECES, COLORS, drawNextPiece } from './pieces.js';
 
 
 export class AtualPiece {
-    
+
     constructor(type) {
         
         this.type = type;
@@ -12,7 +12,6 @@ export class AtualPiece {
         this.x = 4;
         this.y = -2;
     }
-    
 }
 
 const types = ["O", "T", "L", "J", "S", "Z", "I"];
@@ -61,7 +60,6 @@ export function newPiece() {
 export function rotatePiece(piece) {
 
     const oldShape = piece.shape;
-
     const newShape = [];
 
     for(let col = 0; col < oldShape[0].length; col++){
@@ -73,7 +71,6 @@ export function rotatePiece(piece) {
             newShape[col].push(
                 oldShape[row][col]
             );
-
         }
     }
 

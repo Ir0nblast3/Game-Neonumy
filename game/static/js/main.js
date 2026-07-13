@@ -7,6 +7,7 @@ import './player.js';
 export let speed = 500;
 
 const resumeBtn = document.getElementById("resumeBtn");
+const form = document.getElementById("scoreForm");
 
 export function draw() {
 
@@ -27,7 +28,6 @@ export function update() {
 
         piece.y--;
 
-        // verifica se ficou acima do topo
         for (let row = 0; row < piece.shape.length; row++) {
             for (let col = 0; col < piece.shape[row].length; col++) {
 
@@ -51,7 +51,6 @@ export function update() {
 }
 
 initPieces();
-
 draw();
 
 let gameLoop = setInterval(update, speed);
@@ -63,24 +62,18 @@ export function changeSpeed(newSpeed) {
     clearInterval(gameLoop);
 
     gameLoop = setInterval(update, speed);
-
 }
 
 
-document.getElementById("submitBtn").addEventListener("click", () =>{
-    
-    const playerName = document.getElementById("playerName").value.trim();
-    
-    if (playerName === "") {
-        alert("Please enter your name!");
-        return;
-    }
-    
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
     saveHighScore(score);
+
     document.getElementById("submitBtn").classList.add("hidden");
     document.getElementById("restartBtn").classList.remove("hidden");
     document.getElementById("playerName").classList.add("hidden");
-})
+});
 
 document.getElementById("resumeBtn").addEventListener("click", () =>{
     togglePause();

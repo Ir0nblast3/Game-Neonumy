@@ -33,7 +33,6 @@ document.addEventListener("keydown", (event) => {
             if (collision(piece)) {
 
                 piece.x++;
-
             }
 
             break;
@@ -45,7 +44,6 @@ document.addEventListener("keydown", (event) => {
             if (collision(piece)) {
 
                 piece.x--;
-
             }
 
             break;
@@ -54,10 +52,7 @@ document.addEventListener("keydown", (event) => {
             togglePause();
 
             break
-
     }
 
-
     draw();
-
 });

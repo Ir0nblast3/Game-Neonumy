@@ -1,20 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from .models import Score
 import json
 
 def index(request):
     return render(request, 'index.html')
 
-@csrf_exempt
+
 def add_score(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-
         Score.objects.create(
-            player=data["player"],
-            score=data["score"]
+            player=request.POST["player"],
+            score=request.POST["score"]
         )
 
         return JsonResponse({

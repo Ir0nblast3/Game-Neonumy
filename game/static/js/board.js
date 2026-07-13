@@ -6,7 +6,6 @@ export const ctx = canvas.getContext("2d");
 export const ROWS = 20;
 export const COLS = 10;
 export const BLOCK_SIZE = 30;
-
 export let board = [];
 
 for (let row = 0; row < ROWS; row++) {
@@ -40,7 +39,6 @@ export function drawBoard() {
           BLOCK_SIZE,
           BLOCK_SIZE
         );
-
       }
     }
   }
@@ -62,9 +60,7 @@ export function mergePiece(piece) {
         if (boardY >= 0) {
           board[boardY][boardX] = piece.color;
         }
-
       }
-
     }
   }
 }
@@ -81,9 +77,7 @@ export function clearLines() {
 
         full = false;
         break;
-
       }
-
     }
 
     if (full) {
@@ -97,9 +91,6 @@ export function clearLines() {
       addScore(100);
 
       row++;
-
     }
-
   }
-
 }

@@ -6,7 +6,6 @@ export let pause = false
 
 export let gameOver = false;
 export let score = 0;
-
 const scoreElement = document.getElementById("score");
 
 export function addScore(points) {
@@ -16,9 +15,7 @@ export function addScore(points) {
     if (score % 1000 === 0) {
 
         const newSpeed = Math.max(150, speed - 50);
-
         changeSpeed(newSpeed);
-
     }
 }
 
@@ -41,7 +38,6 @@ export function collision(piece) {
 
         for (let col = 0; col < piece.shape[row].length; col++) {
 
-
             if (piece.shape[row][col] === 0) {
                 continue;
             }
@@ -52,40 +48,37 @@ export function collision(piece) {
             if (newX < 0 || newX >= 10) {
                 return true;
             }
-
             if (newY >= ROWS) {
                 return true;
             }
-
             if (newY >= 0 && board[newY][newX] !== 0) {
                 return true;
             }
-
         }
     }
-
 
     return false;
 }
 
 const highScoreList = document.getElementById("highScoreList");
-
 loadHighScores();
 
 export async function saveHighScore(score) {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const formData = new FormData();
+
+    formData.append("player", document.getElementById("playerName").value);
+    formData.append("score", score);
 
     await fetch("http://127.0.0.1:8000/add-score/", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "X-CSRFToken": csrftoken
         },
-        body: JSON.stringify({
-            player: document.getElementById("playerName").value,
-            score: score
-        })
+        body: formData
     })
   
-    await loadHighScores();
+    loadHighScores();
 }
 
 export async function loadHighScores() {

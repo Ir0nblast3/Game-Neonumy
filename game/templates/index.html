@@ -43,10 +43,15 @@
           <h1 class="title">Game Over</h1>
           <p class="text">Score <span id="finalScore"></span></p>
 
-          <input class="text" type="text" id="playerName" placeholder="Enter your name" />
+          <form id="scoreForm">
+            {% csrf_token %}
+            <input class="text" type="text" id="playerName" name="player" placeholder="Enter your name" required>
+            <button class="button" type="submit" id="submitBtn">Submit</button>
+          </form>
 
-          <button class="button" id="submitBtn">Submit</button>
-          <button class="button hidden" id="restartBtn">Play Again</button>
+          <button class="button hidden" id="restartBtn">
+            Play Again
+          </button>
         </div>
       </div>
 
