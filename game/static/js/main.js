@@ -66,14 +66,11 @@ export function changeSpeed(newSpeed) {
 
 }
 
-document.getElementById("restartBtn").addEventListener("click", () => {
-    location.reload();
-});
 
 document.getElementById("submitBtn").addEventListener("click", () =>{
     
     const playerName = document.getElementById("playerName").value.trim();
-
+    
     if (playerName === "") {
         alert("Please enter your name!");
         return;
@@ -88,3 +85,11 @@ document.getElementById("submitBtn").addEventListener("click", () =>{
 document.getElementById("resumeBtn").addEventListener("click", () =>{
     togglePause();
 })
+
+document.getElementById("restartBtn").addEventListener("click", () => {
+    location.reload();
+});
+
+document.getElementById("playAgainBtn").addEventListener("click", () => {
+    location.reload();
+});
