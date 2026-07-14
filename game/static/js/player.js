@@ -10,11 +10,15 @@ document.addEventListener("keydown", (event) => {
     switch(event.key) {
 
         case "ArrowDown":
+        case "s":
+        case "S":
 
             update();
             break;
 
         case "ArrowUp":
+        case "w":
+        case "W":
 
             rotatePiece(piece);
 
@@ -27,6 +31,8 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowLeft":
+        case "a":
+        case "A":
 
             piece.x--;
 
@@ -38,6 +44,8 @@ document.addEventListener("keydown", (event) => {
             break;
 
         case "ArrowRight":
+        case "d":
+        case "D":
 
             piece.x++;
 
@@ -47,7 +55,9 @@ document.addEventListener("keydown", (event) => {
             }
 
             break;
+            
         case "p":
+        case "P":
 
             togglePause();
 
